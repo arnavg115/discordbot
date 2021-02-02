@@ -4,9 +4,9 @@ from PIL import Image
 import numpy as np
 from matplotlib import pyplot as plt
 from tensorflow.keras import models
-g = models.load_model("facegan/model.h5")
+g = models.load_model("model.h5")
 import os
-TOKEN = os.getenv(TOKEN)
+TOKEN = os.getenv("TOKEN")
 client = discord.Client()
 @client.event
 async def on_ready():
