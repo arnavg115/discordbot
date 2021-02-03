@@ -42,4 +42,4 @@ async def shakespeare(ctx,numebr:int):
 
     m = tf.strings.join(result)[0].numpy().decode("utf-8")
     await ctx.send(m)
-client.run("ODA2MjA0ODIyNjc1MzkwNTE0.YBmCwA.GcYWfkz3YW8rU2ZXJvUpcM6OqjI")
+client.run(os.getenv("TOKEN"))
