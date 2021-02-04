@@ -38,5 +38,5 @@ async def shakespeare(ctx, number:int):
 @client.command(name = "code",help="If you would like to check out the source code behind this bot here are some sources")
 async def code(ctx):
     m = "Discord bot: https://github.com/arnavg115/discordbot \n Shakespeare api: https://github.com/arnavg115/Shakespeareapi1 \n Shakespeare api docker image: https://hub.docker.com/r/arnavg1q5/shakespeareapi"
-    ctx.send(m)
+    await ctx.send(m)
 client.run(os.getenv("TOKEN"))
