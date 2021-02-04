@@ -1,6 +1,7 @@
 import discord
 from discord.ext import commands
 import tensorflow as tf
+import requests
 from PIL import Image
 import numpy as np
 from matplotlib import pyplot as plt
@@ -8,7 +9,6 @@ from tensorflow.keras import models
 g = models.load_model("model.h5")
 import os
 client = commands.Bot(command_prefix=":)")
-textmd = tf.saved_model.load("one_step")
 @client.event
 async def on_ready():
   print("Connected as {}".format(client.user))
@@ -28,18 +28,11 @@ async def face(ctx):
         picture = discord.File(f)
         await ctx.send("tensorflow GAN",file = picture)
 @client.command(name = "shakespeare", help ="Type :)shakespeare and the number of characters between 0 and 200 to ")
-async def shakespeare(ctx,numebr:int):
-    num = numebr
-    if num>200 or num<0:
-        num = 50
-    states = None
-    next_char = tf.constant(['ROMEO:'])
-    result = [next_char]
-
-    for n in range(num):
-        next_char, states = textmd.generate_one_step(next_char, states=states)
-        result.append(next_char)
-
-    m = tf.strings.join(result)[0].numpy().decode("utf-8")
-    await ctx.send(m)
+async def shakespeare(ctx, number:int):
+    numeber = str(number)
+    api = requests.get("https://apiapiapi123.azurewebsites.net/api/v1/request/{}".format(numeber))
+    dic = api.json()
+    for key in dic:
+        f = dic[key]
+    await ctx.send(f)
 client.run(os.getenv("TOKEN"))
