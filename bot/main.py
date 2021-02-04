@@ -31,8 +31,8 @@ async def shakespeare(ctx, number:int):
     if api.status_code != 200:
         await ctx.send("The api is down for now. Please try again later")
     else:
+        dic = api.json()
         for key in dic:
-            dic = api.json()
             f = dic[key]
         await ctx.send(f)
 @client.command(name = "code",help="If you would like to check out the source code behind this bot here are some sources")
