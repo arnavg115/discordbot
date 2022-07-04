@@ -7,11 +7,19 @@ import numpy as np
 from matplotlib import pyplot as plt
 from tensorflow.keras import models
 import os
-import pandas as pd
 import random
 import asyncio
+import csv
 
-df = pd.read_csv("finished.csv")
+fields = []
+rows = []
+with open("finished.csv","r") as file:
+    r = csv.reader(file)
+    fields = next(r)
+    for row in r:
+        rows.append(row)
+
+
 
 
 g = models.load_model("model.h5")
@@ -26,14 +34,14 @@ async def on_ready():
 
 @client.command()
 async def cudai(ctx,help="Type :)cudai to genrate a question. The command stands for Can yoU Detect an AI. The ai will generate an ending to a sentence. The users must react to the message with which response they think was ai generated within 5 seconds. All of the questions were from a corpus of Jane Austen text. For those curious the model used was t5. Also responses were pregenerated since I don't have enough money for a paid heroku account :( ."):
-    rand = df.sample(1)
+    rand = random.choice(rows)
     # print(rand)
-    desc = "```" +rand["source_text"].iloc[0]
+    desc = "```" +rand[2]
     ijs =random.randint(0,1)
     if  ijs == 0:
-        desc += f"\nA) {rand['target_text'].iloc[0].replace(' .','.').strip().replace(' ,', ',')}\nB) {rand['generated'].iloc[0].strip()}```"
+        desc += f"\nA) {rand[3].replace(' .','.').strip().replace(' ,', ',')}\nB) {rand[4].strip()}```"
     else:
-        desc += f"\nA) {rand['generated'].iloc[0].strip()}\nB) {rand['target_text'].iloc[0].strip().replace(' .','.').replace(' ,',',')}```"
+        desc += f"\nA) {rand[4].strip()}\nB) {rand[3].strip().replace(' .','.').replace(' ,',',')}```"
        
     emd = discord.Embed(title="Question",description=desc)
 
